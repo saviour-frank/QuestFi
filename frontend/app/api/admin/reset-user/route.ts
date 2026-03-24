@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import clientPromise from '@/lib/mongodb'
+import getClientPromise from '@/lib/mongodb'
 
 // Admin endpoint to reset a user's profile
 export async function POST(request: NextRequest) {
@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const client = await clientPromise
+    const client = await getClientPromise()
     const db = client.db('QuestFi')
     const collection = db.collection('userProfiles')
 
