@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import clientPromise from '@/lib/mongodb'
+import getClientPromise from '@/lib/mongodb'
 import { validateChallenge, consumeChallenge } from '@/lib/wallet/challenge-store'
 import { verifyWalletSignature } from '@/lib/wallet/wallet-auth'
 
@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Connect to MongoDB
-    const client = await clientPromise
+    const client = await getClientPromise()
     const db = client.db('QuestFi')
     const usersCollection = db.collection('users')
 
