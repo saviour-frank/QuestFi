@@ -175,3 +175,5 @@
 ;; get-tip
 ;; Retrieves a tip entry from the QuestLedger by ID
 (define-read-only (get-tip (tip-id uint))
+    (map-get? tips { tip-id: tip-id })
+)
