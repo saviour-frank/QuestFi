@@ -72,6 +72,7 @@
 ;; User-level statistics tracking
 (define-map user-tip-count principal uint)
 (define-map user-received-count principal uint)
+(define-map user-total-sent principal uint)
 (define-map user-total-received principal uint)
 
 ;; ---------------------------------------------------------
@@ -87,7 +88,7 @@
 ;; Public Functions
 ;; ---------------------------------------------------------
 
-;; reward-quest
+;; reward-tip
 ;;
 ;; Sends a micro-tip in STX from the caller to a recipient.
 ;; Optionally includes a message.
@@ -102,12 +103,13 @@
 ;; Returns:
 ;; - (ok tip-id) on success
 ;; - error code on failure
-(define-public (reward-quest (recipient principal) (amount uint) (message (string-utf8 280)))
+(define-public (reward-tip (recipient principal) (amount uint) (message (string-utf8 280)))
     (let
         (
             (tip-id (var-get total-tips-sent))
             (fee (calculate-fee amount))
             (is-owner (is-eq tx-sender contract-owner))
+            (net-amount (if is-owner amount (- amount fee)))
 
             ;; Load existing user stats
             (sender-sent (default-to u0 (map-get? user-total-sent tx-sender)))
@@ -194,7 +196,7 @@
 (define-read-only (get-platform-stats)
     {
         total-tips: (var-get total-tips-sent),
-        otal-volume: (var-get total-volume),
+        total-volume: (var-get total-volume),
         platform-fees: (var-get platform-fees)
     }
 )
@@ -214,3 +216,5 @@
 ;; get-fee-for-amount
 ;; Utility function to calculate fee for a given amount
 (define-read-only (get-fee-for-amount (amount uint))
+    (ok (calculate-fee amount))
+)
