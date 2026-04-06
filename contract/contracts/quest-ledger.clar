@@ -184,3 +184,4 @@
     {
         tips-sent: (default-to u0 (map-get? user-tip-count user)),
         tips-received: (default-to u0 (map-get? user-received-count user)),
+        total-sent: (default-to u0 (map-get? user-total-sent user)),
