@@ -167,3 +167,11 @@
         (ok tip-id)
     )
 )
+
+;; ---------------------------------------------------------
+;; Read-Only Functions
+;; ---------------------------------------------------------
+
+;; get-tip
+;; Retrieves a tip entry from the QuestLedger by ID
+(define-read-only (get-tip (tip-id uint))
