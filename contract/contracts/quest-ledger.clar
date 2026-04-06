@@ -195,3 +195,6 @@
     {
         total-tips: (var-get total-tips-sent),
         otal-volume: (var-get total-volume),
+        platform-fees: (var-get platform-fees)
+    }
+)
