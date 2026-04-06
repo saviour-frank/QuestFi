@@ -194,3 +194,4 @@
 (define-read-only (get-platform-stats)
     {
         total-tips: (var-get total-tips-sent),
+        otal-volume: (var-get total-volume),
