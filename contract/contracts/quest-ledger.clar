@@ -73,3 +73,10 @@
 (define-map user-tip-count principal uint)
 (define-map user-received-count principal uint)
 (define-map user-total-received principal uint)
+
+;; ---------------------------------------------------------
+;; Private Functions
+;; ---------------------------------------------------------
+
+;; Calculates the platform fee based on basis points
+(define-private (calculate-fee (amount uint))
