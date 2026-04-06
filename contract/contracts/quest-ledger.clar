@@ -139,3 +139,4 @@
         ;; Record Tip in Ledger
         ;; -------------------------
         (map-set tips
+            { tip-id: tip-id }
