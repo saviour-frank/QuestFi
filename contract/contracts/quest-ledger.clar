@@ -103,3 +103,6 @@
 ;; - (ok tip-id) on success
 ;; - error code on failure
 (define-public (reward-tip (recipient principal) (amount uint) (message (string-utf8 280)))
+    (let
+        (
+            (tip-id (var-get total-tips-sent))
