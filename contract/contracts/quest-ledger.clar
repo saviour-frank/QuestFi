@@ -59,3 +59,4 @@
 
 ;; Ledger of all tips recorded on-chain (QuestLedger)
 (define-map tips
+    { tip-id: uint }
