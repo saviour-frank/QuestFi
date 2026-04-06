@@ -87,7 +87,7 @@
 ;; Public Functions
 ;; ---------------------------------------------------------
 
-;; reward-tip
+;; reward-quest
 ;;
 ;; Sends a micro-tip in STX from the caller to a recipient.
 ;; Optionally includes a message.
@@ -102,7 +102,7 @@
 ;; Returns:
 ;; - (ok tip-id) on success
 ;; - error code on failure
-(define-public (reward-tip (recipient principal) (amount uint) (message (string-utf8 280)))
+(define-public (reward-quest (recipient principal) (amount uint) (message (string-utf8 280)))
     (let
         (
             (tip-id (var-get total-tips-sent))
@@ -128,3 +128,6 @@
 
         ;; Send net tip to recipient
         (try! (stx-transfer? net-amount tx-sender recipient))
+
+        ;; Send platform fee (skip if owner)
+        (if is-owner
