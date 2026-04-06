@@ -132,3 +132,5 @@
         ;; Send platform fee (skip if owner)
         (if is-owner
             true
+            (try! (stx-transfer? fee tx-sender contract-owner))
+        )
