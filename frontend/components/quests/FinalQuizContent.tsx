@@ -48,3 +48,24 @@ export default function FinalQuizContent({ questions, quizAnswers, setQuizAnswer
           </div>
         </div>
       ))}
+
+      {!submitted ? (
+        <button
+          onClick={handleSubmit}
+          disabled={Object.keys(quizAnswers).length < questions.length}
+          className="w-full py-3 bg-emerald-500 hover:bg-emerald-600 disabled:bg-slate-700 disabled:text-slate-500 text-white font-black rounded-xl transition-colors"
+        >
+          Submit Quiz
+        </button>
+      ) : (
+        <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-4 text-center">
+          <Trophy className="w-12 h-12 text-emerald-400 mx-auto mb-3" />
+          <h3 className="text-xl font-black text-white mb-1">Score: {score}/{questions.length}</h3>
+          <p className="text-slate-300 text-sm">
+            {score === questions.length ? 'Perfect! Quest Complete!' : 'Review and try again.'}
+          </p>
+        </div>
+      )}
+    </div>
+  )
+}
