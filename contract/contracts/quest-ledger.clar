@@ -192,3 +192,5 @@
 ;; get-platform-stats
 ;; Returns overall QuestLedger protocol statistics
 (define-read-only (get-platform-stats)
+    {
+        total-tips: (var-get total-tips-sent),
