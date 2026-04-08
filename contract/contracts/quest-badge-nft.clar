@@ -102,3 +102,6 @@
       (is-none (map-get? user-protocol-badge {
         user: tx-sender,
         protocol: protocol,
+      }))
+      ERR_ALREADY_CLAIMED
+    )
