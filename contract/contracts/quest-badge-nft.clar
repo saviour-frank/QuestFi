@@ -168,3 +168,9 @@
 (define-read-only (get-protocol-info (protocol (string-ascii 50)))
   (ok (map-get? valid-protocols protocol))
 )
+
+;; Admin functions
+
+;; Initialize or update a protocol
+;; #[allow(unchecked_data)]
+(define-public (set-protocol
