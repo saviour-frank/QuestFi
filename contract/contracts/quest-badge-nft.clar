@@ -90,3 +90,4 @@
 (define-public (mint-badge (protocol (string-ascii 50)))
   (let (
       (token-id (+ (var-get last-token-id) u1))
+      (protocol-info (unwrap! (map-get? valid-protocols protocol) ERR_INVALID_QUEST))
