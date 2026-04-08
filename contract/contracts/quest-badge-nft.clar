@@ -38,13 +38,13 @@
     user: principal,
     protocol: (string-ascii 50),
   }
-    uint
+  uint
 )
 
 ;; Track total badges minted per protocol
 (define-map protocol-badge-count
   (string-ascii 50)
-    uint
+  uint
 )
 
 ;; Valid protocol names
@@ -93,7 +93,6 @@
       (protocol-info (unwrap! (map-get? valid-protocols protocol) ERR_INVALID_QUEST))
       (current-count (default-to u0 (map-get? protocol-badge-count protocol)))
     )
-
     ;; Check if protocol is active
     (asserts! (get active protocol-info) ERR_INVALID_QUEST)
 
@@ -126,8 +125,7 @@
     (map-set protocol-badge-count protocol (+ current-count u1))
 
     (ok token-id)
-
-    )
+  )
 )
 
 ;; Read-only functions
@@ -139,8 +137,8 @@
 
 ;; Get user's badge for a specific protocol
 (define-read-only (get-user-badge
-  (user principal)
-  (protocol (string-ascii 50))
+    (user principal)
+    (protocol (string-ascii 50))
   )
   (ok (map-get? user-protocol-badge {
     user: user,
@@ -150,16 +148,16 @@
 
 ;; Check if user has completed a protocol quest
 (define-read-only (has-completed-protocol
-  (user principal)
-  (protocol (string-ascii 50))
+    (user principal)
+    (protocol (string-ascii 50))
   )
   (ok (is-some (map-get? user-protocol-badge {
     user: user,
     protocol: protocol,
-    })))
+  })))
 )
 
-; Get total badges minted for a protocol
+;; Get total badges minted for a protocol
 (define-read-only (get-protocol-badge-count (protocol (string-ascii 50)))
   (ok (default-to u0 (map-get? protocol-badge-count protocol)))
 )
@@ -202,7 +200,7 @@
 (map-set valid-protocols "zest" {
   active: true,
   xp-reward: u50,
-  })
+})
 
 (map-set valid-protocols "stackingdao" {
   active: true,
