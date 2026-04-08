@@ -114,3 +114,4 @@
     (map-set token-info token-id {
       protocol: protocol,
       owner: tx-sender,
+      completion-date: stacks-block-height,
