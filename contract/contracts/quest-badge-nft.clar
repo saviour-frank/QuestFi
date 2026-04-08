@@ -205,3 +205,4 @@
   })
 
 (map-set valid-protocols "stackingdao" {
+  active: true,
