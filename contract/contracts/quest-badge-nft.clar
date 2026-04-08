@@ -156,3 +156,5 @@
   (ok (is-some (map-get? user-protocol-badge {
     user: user,
     protocol: protocol,
+    })))
+)
