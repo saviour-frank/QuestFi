@@ -217,3 +217,6 @@
 (map-set valid-protocols "hermetica" {
   active: true,
   xp-reward: u65,
+})
+
+(map-set valid-protocols "arkadiko" {
