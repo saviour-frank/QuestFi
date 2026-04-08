@@ -200,3 +200,4 @@
 
 ;; Initialize default protocols 
 (map-set valid-protocols "zest" {
+  active: true,
