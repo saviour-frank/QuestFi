@@ -142,3 +142,4 @@
   (user principal)
   (protocol (string-ascii 50))
   )
+  (ok (map-get? user-protocol-badge {
