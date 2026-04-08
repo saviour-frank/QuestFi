@@ -129,3 +129,8 @@
 
     )
 )
+
+;; Read-only functions
+
+;; Get badge information
+(define-read-only (get-badge-info (token-id uint))
