@@ -38,13 +38,13 @@
     user: principal,
     protocol: (string-ascii 50),
   }
-    uint
+  uint
 )
 
 ;; Track total badges minted per protocol
 (define-map protocol-badge-count
   (string-ascii 50)
-    uint
+  uint
 )
 
 ;; Valid protocol names
@@ -93,7 +93,6 @@
       (protocol-info (unwrap! (map-get? valid-protocols protocol) ERR_INVALID_QUEST))
       (current-count (default-to u0 (map-get? protocol-badge-count protocol)))
     )
-
     ;; Check if protocol is active
     (asserts! (get active protocol-info) ERR_INVALID_QUEST)
 
@@ -124,3 +123,101 @@
       token-id
     )
     (map-set protocol-badge-count protocol (+ current-count u1))
+
+    (ok token-id)
+  )
+)
+
+;; Read-only functions
+
+;; Get badge information
+(define-read-only (get-badge-info (token-id uint))
+  (ok (map-get? token-info token-id))
+)
+
+;; Get user's badge for a specific protocol
+(define-read-only (get-user-badge
+    (user principal)
+    (protocol (string-ascii 50))
+  )
+  (ok (map-get? user-protocol-badge {
+    user: user,
+    protocol: protocol,
+  }))
+)
+
+;; Check if user has completed a protocol quest
+(define-read-only (has-completed-protocol
+    (user principal)
+    (protocol (string-ascii 50))
+  )
+  (ok (is-some (map-get? user-protocol-badge {
+    user: user,
+    protocol: protocol,
+  })))
+)
+
+;; Get total badges minted for a protocol
+(define-read-only (get-protocol-badge-count (protocol (string-ascii 50)))
+  (ok (default-to u0 (map-get? protocol-badge-count protocol)))
+)
+
+;; Get protocol info
+(define-read-only (get-protocol-info (protocol (string-ascii 50)))
+  (ok (map-get? valid-protocols protocol))
+)
+
+;; Admin functions
+
+;; Initialize or update a protocol
+;; #[allow(unchecked_data)]
+(define-public (set-protocol
+    (protocol (string-ascii 50))
+    (active bool)
+    (xp-reward uint)
+  )
+  (begin
+    (asserts! (is-eq tx-sender CONTRACT_OWNER) ERR_OWNER_ONLY)
+    (map-set valid-protocols protocol {
+      active: active,
+      xp-reward: xp-reward,
+    })
+    (ok true)
+  )
+)
+
+;; Set base token URI
+;; #[allow(unchecked_data)]
+(define-public (set-base-token-uri (uri (string-ascii 256)))
+  (begin
+    (asserts! (is-eq tx-sender CONTRACT_OWNER) ERR_OWNER_ONLY)
+    (var-set base-token-uri uri)
+    (ok true)
+  )
+)
+
+;; Initialize default protocols 
+(map-set valid-protocols "zest" {
+  active: true,
+  xp-reward: u50,
+})
+
+(map-set valid-protocols "stackingdao" {
+  active: true,
+  xp-reward: u60,
+})
+
+(map-set valid-protocols "granite" {
+  active: true,
+  xp-reward: u70,
+})
+
+(map-set valid-protocols "hermetica" {
+  active: true,
+  xp-reward: u65,
+})
+
+(map-set valid-protocols "arkadiko" {
+  active: true,
+  xp-reward: u55,
+})
