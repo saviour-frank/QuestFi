@@ -202,3 +202,6 @@
 (map-set valid-protocols "zest" {
   active: true,
   xp-reward: u50,
+  })
+
+(map-set valid-protocols "stackingdao" {
