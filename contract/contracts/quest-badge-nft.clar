@@ -197,3 +197,6 @@
     (ok true)
   )
 )
+
+;; Initialize default protocols 
+(map-set valid-protocols "zest" {
