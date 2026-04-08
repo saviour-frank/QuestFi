@@ -118,3 +118,4 @@
       xp-earned: (get xp-reward protocol-info),
     })
     (map-set user-protocol-badge {
+      user: tx-sender,
