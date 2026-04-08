@@ -215,3 +215,4 @@
 })
 
 (map-set valid-protocols "hermetica" {
+  active: true,
