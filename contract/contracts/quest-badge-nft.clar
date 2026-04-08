@@ -158,3 +158,6 @@
     protocol: protocol,
     })))
 )
+
+; Get total badges minted for a protocol
+(define-read-only (get-protocol-badge-count (protocol (string-ascii 50)))
