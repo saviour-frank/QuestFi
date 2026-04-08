@@ -144,3 +144,6 @@
   )
   (ok (map-get? user-protocol-badge {
     user: user,
+    protocol: protocol,
+  }))
+)
