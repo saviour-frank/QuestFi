@@ -105,3 +105,6 @@
       }))
       ERR_ALREADY_CLAIMED
     )
+
+    ;; Mint the NFT to the caller
+    (try! (nft-mint? quest-badge token-id tx-sender))
