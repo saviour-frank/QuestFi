@@ -135,3 +135,7 @@
 ;; Get badge information
 (define-read-only (get-badge-info (token-id uint))
   (ok (map-get? token-info token-id))
+)
+
+;; Get user's badge for a specific protocol
+(define-read-only (get-user-badge
