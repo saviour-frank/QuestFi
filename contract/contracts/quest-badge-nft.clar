@@ -55,3 +55,7 @@
     xp-reward: uint,
   }
 )
+
+;; SIP-009 required functions
+
+(define-read-only (get-last-token-id)
