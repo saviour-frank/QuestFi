@@ -23,3 +23,5 @@
 
 ;; Map token ID to quest info
 (define-map token-info
+  uint
+  {
