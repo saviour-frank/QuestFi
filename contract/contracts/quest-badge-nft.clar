@@ -208,3 +208,5 @@
   active: true,
   xp-reward: u60,
 })
+
+(map-set valid-protocols "granite" {
