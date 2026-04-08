@@ -111,3 +111,4 @@
 
     ;; Update data
     (var-set last-token-id token-id)
+    (map-set token-info token-id {
