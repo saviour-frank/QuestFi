@@ -108,3 +108,6 @@
 
     ;; Mint the NFT to the caller
     (try! (nft-mint? quest-badge token-id tx-sender))
+
+    ;; Update data
+    (var-set last-token-id token-id)
