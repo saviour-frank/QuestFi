@@ -221,3 +221,5 @@
 
 (map-set valid-protocols "arkadiko" {
   active: true,
+  xp-reward: u55,
+})
