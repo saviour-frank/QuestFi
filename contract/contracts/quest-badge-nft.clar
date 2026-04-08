@@ -206,3 +206,5 @@
 
 (map-set valid-protocols "stackingdao" {
   active: true,
+  xp-reward: u60,
+})
