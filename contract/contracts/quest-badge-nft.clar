@@ -220,3 +220,4 @@
 })
 
 (map-set valid-protocols "arkadiko" {
+  active: true,
