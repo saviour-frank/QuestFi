@@ -178,3 +178,5 @@
     (active bool)
     (xp-reward uint)
   )
+  (begin
+    (asserts! (is-eq tx-sender CONTRACT_OWNER) ERR_OWNER_ONLY)
