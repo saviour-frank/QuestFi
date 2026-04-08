@@ -25,3 +25,4 @@
 (define-map token-info
   uint
   {
+    protocol: (string-ascii 50),
