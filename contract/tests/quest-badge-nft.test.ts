@@ -126,3 +126,14 @@ describe("Quest Badge NFT Contract", () => {
         [Cl.stringAscii("stackingdao")],
         wallet1
       );
+
+      expect(result).toBeOk(Cl.uint(1));
+    });
+
+    it("allows different users to mint same protocol badge", () => {
+      const mint1 = simnet.callPublicFn(
+        "quest-badge-nft",
+        "mint-badge",
+        [Cl.stringAscii("granite")],
+        wallet1
+      );
