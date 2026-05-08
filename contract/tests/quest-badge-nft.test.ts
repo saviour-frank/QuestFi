@@ -13,7 +13,7 @@ describe("Quest Badge NFT Contract", () => {
     it("initializes with 5 default protocols", () => {
       const protocols = ["zest", "stackingdao", "granite", "hermetica", "arkadiko"];
 
-       protocols.forEach(protocol => {
+      protocols.forEach(protocol => {
         const { result } = simnet.callReadOnlyFn(
           "quest-badge-nft",
           "get-protocol-info",
@@ -35,7 +35,7 @@ describe("Quest Badge NFT Contract", () => {
       });
     });
 
-     it("starts with last-token-id at 0", () => {
+    it("starts with last-token-id at 0", () => {
       const { result } = simnet.callReadOnlyFn(
         "quest-badge-nft",
         "get-last-token-id",
@@ -65,7 +65,7 @@ describe("Quest Badge NFT Contract", () => {
         wallet1
       );
 
-       expect(result).toBeOk(Cl.uint(1));
+      expect(result).toBeOk(Cl.uint(1));
     });
 
     it("increments last-token-id after minting", () => {
@@ -137,8 +137,9 @@ describe("Quest Badge NFT Contract", () => {
         [Cl.stringAscii("granite")],
         wallet1
       );
+      expect(mint1.result).toBeOk(Cl.uint(1));
 
-       const mint2 = simnet.callPublicFn(
+      const mint2 = simnet.callPublicFn(
         "quest-badge-nft",
         "mint-badge",
         [Cl.stringAscii("granite")],
@@ -154,8 +155,9 @@ describe("Quest Badge NFT Contract", () => {
         [Cl.stringAscii("zest")],
         wallet1
       );
+      expect(mint1.result).toBeOk(Cl.uint(1));
 
-       const mint2 = simnet.callPublicFn(
+      const mint2 = simnet.callPublicFn(
         "quest-badge-nft",
         "mint-badge",
         [Cl.stringAscii("arkadiko")],
