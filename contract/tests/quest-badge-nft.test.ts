@@ -6,3 +6,163 @@ const deployer = accounts.get("deployer")!;
 const wallet1 = accounts.get("wallet_1")!;
 const wallet2 = accounts.get("wallet_2")!;
 const wallet3 = accounts.get("wallet_3")!;
+
+describe("Quest Badge NFT Contract", () => {
+
+  describe("Initialization", () => {
+    it("initializes with 5 default protocols", () => {
+      const protocols = ["zest", "stackingdao", "granite", "hermetica", "arkadiko"];
+
+      protocols.forEach(protocol => {
+        const { result } = simnet.callReadOnlyFn(
+          "quest-badge-nft",
+          "get-protocol-info",
+          [Cl.stringAscii(protocol)],
+          wallet1
+        );
+
+        expect(result).toBeOk(
+          Cl.some(
+            Cl.tuple({
+              active: Cl.bool(true),
+              "xp-reward": Cl.uint(protocol === "granite" ? 70 :
+                                   protocol === "hermetica" ? 65 :
+                                   protocol === "stackingdao" ? 60 :
+                                   protocol === "arkadiko" ? 55 : 50)
+            })
+          )
+        );
+      });
+    });
+
+    it("starts with last-token-id at 0", () => {
+      const { result } = simnet.callReadOnlyFn(
+        "quest-badge-nft",
+        "get-last-token-id",
+        [],
+        wallet1
+      );
+      expect(result).toBeOk(Cl.uint(0));
+    });
+
+    it("initializes with correct protocol badge counts", () => {
+      const { result } = simnet.callReadOnlyFn(
+        "quest-badge-nft",
+        "get-protocol-badge-count",
+        [Cl.stringAscii("zest")],
+        wallet1
+      );
+      expect(result).toBeOk(Cl.uint(0));
+    });
+  });
+
+  describe("Badge Minting", () => {
+    it("allows user to mint badge for valid protocol", () => {
+      const { result } = simnet.callPublicFn(
+        "quest-badge-nft",
+        "mint-badge",
+        [Cl.stringAscii("zest")],
+        wallet1
+      );
+
+      expect(result).toBeOk(Cl.uint(1));
+    });
+
+    it("increments last-token-id after minting", () => {
+      simnet.callPublicFn(
+        "quest-badge-nft",
+        "mint-badge",
+        [Cl.stringAscii("zest")],
+        wallet1
+      );
+
+      const { result } = simnet.callReadOnlyFn(
+        "quest-badge-nft",
+        "get-last-token-id",
+        [],
+        wallet1
+      );
+      expect(result).toBeOk(Cl.uint(1));
+    });
+
+    it("stores badge info correctly", () => {
+      simnet.callPublicFn(
+        "quest-badge-nft",
+        "mint-badge",
+        [Cl.stringAscii("zest")],
+        wallet1
+      );
+
+      const { result } = simnet.callReadOnlyFn(
+        "quest-badge-nft",
+        "get-badge-info",
+        [Cl.uint(1)],
+        wallet1
+      );
+
+      expect(result).toBeOk(
+        Cl.some(
+          Cl.tuple({
+            protocol: Cl.stringAscii("zest"),
+            owner: Cl.principal(wallet1),
+            "completion-date": Cl.uint(simnet.blockHeight),
+            "xp-earned": Cl.uint(50)
+          })
+        )
+      );
+    });
+
+    it("increments protocol badge count", () => {
+      simnet.callPublicFn(
+        "quest-badge-nft",
+        "mint-badge",
+        [Cl.stringAscii("stackingdao")],
+        wallet1
+      );
+
+      const { result } = simnet.callReadOnlyFn(
+        "quest-badge-nft",
+        "get-protocol-badge-count",
+        [Cl.stringAscii("stackingdao")],
+        wallet1
+      );
+
+      expect(result).toBeOk(Cl.uint(1));
+    });
+
+    it("allows different users to mint same protocol badge", () => {
+      const mint1 = simnet.callPublicFn(
+        "quest-badge-nft",
+        "mint-badge",
+        [Cl.stringAscii("granite")],
+        wallet1
+      );
+      expect(mint1.result).toBeOk(Cl.uint(1));
+
+      const mint2 = simnet.callPublicFn(
+        "quest-badge-nft",
+        "mint-badge",
+        [Cl.stringAscii("granite")],
+        wallet2
+      );
+      expect(mint2.result).toBeOk(Cl.uint(2));
+    });
+
+    it("allows user to mint badges for different protocols", () => {
+      const mint1 = simnet.callPublicFn(
+        "quest-badge-nft",
+        "mint-badge",
+        [Cl.stringAscii("zest")],
+        wallet1
+      );
+      expect(mint1.result).toBeOk(Cl.uint(1));
+
+      const mint2 = simnet.callPublicFn(
+        "quest-badge-nft",
+        "mint-badge",
+        [Cl.stringAscii("arkadiko")],
+        wallet1
+      );
+      expect(mint2.result).toBeOk(Cl.uint(2));
+    });
+  });
