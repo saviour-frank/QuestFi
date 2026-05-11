@@ -337,3 +337,6 @@ describe("Quest Badge NFT Contract", () => {
         [Cl.principal(wallet1), Cl.stringAscii("hermetica")],
         wallet1
       );
+
+      expect(result).toBeOk(Cl.bool(true));
+    });
