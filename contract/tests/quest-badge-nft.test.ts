@@ -166,3 +166,284 @@ describe("Quest Badge NFT Contract", () => {
       expect(mint2.result).toBeOk(Cl.uint(2));
     });
   });
+
+  describe("Duplicate Prevention", () => {
+    it("prevents user from minting same protocol badge twice", () => {
+      // First mint succeeds
+      const mint1 = simnet.callPublicFn(
+        "quest-badge-nft",
+        "mint-badge",
+        [Cl.stringAscii("hermetica")],
+        wallet1
+      );
+      expect(mint1.result).toBeOk(Cl.uint(1));
+
+      // Second mint fails with ERR_ALREADY_CLAIMED
+      const mint2 = simnet.callPublicFn(
+        "quest-badge-nft",
+        "mint-badge",
+        [Cl.stringAscii("hermetica")],
+        wallet1
+      );
+      expect(mint2.result).toBeErr(Cl.uint(104)); // ERR_ALREADY_CLAIMED
+    });
+
+    it("tracks user-protocol badge mapping", () => {
+      simnet.callPublicFn(
+        "quest-badge-nft",
+        "mint-badge",
+        [Cl.stringAscii("zest")],
+        wallet1
+      );
+
+      const { result } = simnet.callReadOnlyFn(
+        "quest-badge-nft",
+        "get-user-badge",
+        [Cl.principal(wallet1), Cl.stringAscii("zest")],
+        wallet1
+      );
+
+      expect(result).toBeOk(Cl.some(Cl.uint(1)));
+    });
+
+    it("returns none for non-existent user-protocol badge", () => {
+      const { result } = simnet.callReadOnlyFn(
+        "quest-badge-nft",
+        "get-user-badge",
+        [Cl.principal(wallet1), Cl.stringAscii("zest")],
+        wallet1
+      );
+
+      expect(result).toBeOk(Cl.none());
+    });
+  });
+
+  describe("Invalid Protocol Handling", () => {
+    it("rejects minting for non-existent protocol", () => {
+      const { result } = simnet.callPublicFn(
+        "quest-badge-nft",
+        "mint-badge",
+        [Cl.stringAscii("invalid-protocol")],
+        wallet1
+      );
+
+      expect(result).toBeErr(Cl.uint(105)); // ERR_INVALID_QUEST
+    });
+
+    it("rejects minting for inactive protocol", () => {
+      // First deactivate a protocol
+      simnet.callPublicFn(
+        "quest-badge-nft",
+        "set-protocol",
+        [Cl.stringAscii("zest"), Cl.bool(false), Cl.uint(50)],
+        deployer
+      );
+
+      // Try to mint
+      const { result } = simnet.callPublicFn(
+        "quest-badge-nft",
+        "mint-badge",
+        [Cl.stringAscii("zest")],
+        wallet1
+      );
+
+      expect(result).toBeErr(Cl.uint(105)); // ERR_INVALID_QUEST
+    });
+  });
+
+  describe("NFT Ownership", () => {
+    it("correctly assigns NFT ownership", () => {
+      simnet.callPublicFn(
+        "quest-badge-nft",
+        "mint-badge",
+        [Cl.stringAscii("stackingdao")],
+        wallet1
+      );
+
+      const { result } = simnet.callReadOnlyFn(
+        "quest-badge-nft",
+        "get-owner",
+        [Cl.uint(1)],
+        wallet1
+      );
+
+      expect(result).toBeOk(Cl.some(Cl.principal(wallet1)));
+    });
+
+    it("returns none for non-existent token", () => {
+      const { result } = simnet.callReadOnlyFn(
+        "quest-badge-nft",
+        "get-owner",
+        [Cl.uint(999)],
+        wallet1
+      );
+
+      expect(result).toBeOk(Cl.none());
+    });
+  });
+
+  describe("Soul-Bound Transfer Prevention", () => {
+    it("prevents transfer of badges (soul-bound)", () => {
+      // Mint badge first
+      simnet.callPublicFn(
+        "quest-badge-nft",
+        "mint-badge",
+        [Cl.stringAscii("granite")],
+        wallet1
+      );
+
+      // Try to transfer
+      const { result } = simnet.callPublicFn(
+        "quest-badge-nft",
+        "transfer",
+        [Cl.uint(1), Cl.principal(wallet1), Cl.principal(wallet2)],
+        wallet1
+      );
+
+      expect(result).toBeErr(Cl.uint(103)); // ERR_UNAUTHORIZED
+    });
+
+    it("prevents transfer even by contract owner", () => {
+      simnet.callPublicFn(
+        "quest-badge-nft",
+        "mint-badge",
+        [Cl.stringAscii("arkadiko")],
+        wallet1
+      );
+
+      const { result } = simnet.callPublicFn(
+        "quest-badge-nft",
+        "transfer",
+        [Cl.uint(1), Cl.principal(wallet1), Cl.principal(wallet2)],
+        deployer
+      );
+
+      expect(result).toBeErr(Cl.uint(103)); // ERR_UNAUTHORIZED
+    });
+  });
+
+  describe("Quest Completion Checks", () => {
+    it("returns true when user has completed protocol", () => {
+      simnet.callPublicFn(
+        "quest-badge-nft",
+        "mint-badge",
+        [Cl.stringAscii("hermetica")],
+        wallet1
+      );
+
+      const { result } = simnet.callReadOnlyFn(
+        "quest-badge-nft",
+        "has-completed-protocol",
+        [Cl.principal(wallet1), Cl.stringAscii("hermetica")],
+        wallet1
+      );
+
+      expect(result).toBeOk(Cl.bool(true));
+    });
+
+    it("returns false when user has not completed protocol", () => {
+      const { result } = simnet.callReadOnlyFn(
+        "quest-badge-nft",
+        "has-completed-protocol",
+        [Cl.principal(wallet1), Cl.stringAscii("zest")],
+        wallet1
+      );
+
+      expect(result).toBeOk(Cl.bool(false));
+    });
+  });
+
+  describe("Admin Functions - Protocol Management", () => {
+    it("allows owner to add new protocol", () => {
+      const { result } = simnet.callPublicFn(
+        "quest-badge-nft",
+        "set-protocol",
+        [Cl.stringAscii("new-protocol"), Cl.bool(true), Cl.uint(100)],
+        deployer
+      );
+
+      expect(result).toBeOk(Cl.bool(true));
+
+      // Verify protocol was added
+      const info = simnet.callReadOnlyFn(
+        "quest-badge-nft",
+        "get-protocol-info",
+        [Cl.stringAscii("new-protocol")],
+        wallet1
+      );
+
+      expect(info.result).toBeOk(
+        Cl.some(
+          Cl.tuple({
+            active: Cl.bool(true),
+            "xp-reward": Cl.uint(100)
+          })
+        )
+      );
+    });
+
+    it("allows owner to update existing protocol", () => {
+      const { result } = simnet.callPublicFn(
+        "quest-badge-nft",
+        "set-protocol",
+        [Cl.stringAscii("zest"), Cl.bool(true), Cl.uint(75)],
+        deployer
+      );
+
+      expect(result).toBeOk(Cl.bool(true));
+
+      // Verify XP was updated
+      const info = simnet.callReadOnlyFn(
+        "quest-badge-nft",
+        "get-protocol-info",
+        [Cl.stringAscii("zest")],
+        wallet1
+      );
+
+      expect(info.result).toBeOk(
+        Cl.some(
+          Cl.tuple({
+            active: Cl.bool(true),
+            "xp-reward": Cl.uint(75)
+          })
+        )
+      );
+    });
+
+    it("allows owner to deactivate protocol", () => {
+      const { result } = simnet.callPublicFn(
+        "quest-badge-nft",
+        "set-protocol",
+        [Cl.stringAscii("arkadiko"), Cl.bool(false), Cl.uint(55)],
+        deployer
+      );
+
+      expect(result).toBeOk(Cl.bool(true));
+
+      const info = simnet.callReadOnlyFn(
+        "quest-badge-nft",
+        "get-protocol-info",
+        [Cl.stringAscii("arkadiko")],
+        wallet1
+      );
+
+      expect(info.result).toBeOk(
+        Cl.some(
+          Cl.tuple({
+            active: Cl.bool(false),
+            "xp-reward": Cl.uint(55)
+          })
+        )
+      );
+    });
+    it("prevents non-owner from managing protocols", () => {
+      const { result } = simnet.callPublicFn(
+        "quest-badge-nft",
+        "set-protocol",
+        [Cl.stringAscii("zest"), Cl.bool(true), Cl.uint(100)],
+        wallet1
+      );
+
+      expect(result).toBeErr(Cl.uint(100)); // ERR_OWNER_ONLY
+    });
+  });
