@@ -409,3 +409,11 @@ describe("Quest Badge NFT Contract", () => {
         )
       );
     });
+
+    it("allows owner to deactivate protocol", () => {
+      const { result } = simnet.callPublicFn(
+        "quest-badge-nft",
+        "set-protocol",
+        [Cl.stringAscii("arkadiko"), Cl.bool(false), Cl.uint(55)],
+        deployer
+      );
