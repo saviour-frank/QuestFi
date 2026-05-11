@@ -426,3 +426,13 @@ describe("Quest Badge NFT Contract", () => {
         [Cl.stringAscii("arkadiko")],
         wallet1
       );
+
+      expect(info.result).toBeOk(
+        Cl.some(
+          Cl.tuple({
+            active: Cl.bool(false),
+            "xp-reward": Cl.uint(55)
+          })
+        )
+      );
+    });
