@@ -436,3 +436,14 @@ describe("Quest Badge NFT Contract", () => {
         )
       );
     });
+    it("prevents non-owner from managing protocols", () => {
+      const { result } = simnet.callPublicFn(
+        "quest-badge-nft",
+        "set-protocol",
+        [Cl.stringAscii("zest"), Cl.bool(true), Cl.uint(100)],
+        wallet1
+      );
+
+      expect(result).toBeErr(Cl.uint(100)); // ERR_OWNER_ONLY
+    });
+  });
