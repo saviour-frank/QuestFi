@@ -340,3 +340,11 @@ describe("Quest Badge NFT Contract", () => {
 
       expect(result).toBeOk(Cl.bool(true));
     });
+
+    it("returns false when user has not completed protocol", () => {
+      const { result } = simnet.callReadOnlyFn(
+        "quest-badge-nft",
+        "has-completed-protocol",
+        [Cl.principal(wallet1), Cl.stringAscii("zest")],
+        wallet1
+      );
