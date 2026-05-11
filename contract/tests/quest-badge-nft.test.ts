@@ -399,3 +399,13 @@ describe("Quest Badge NFT Contract", () => {
         [Cl.stringAscii("zest")],
         wallet1
       );
+
+      expect(info.result).toBeOk(
+        Cl.some(
+          Cl.tuple({
+            active: Cl.bool(true),
+            "xp-reward": Cl.uint(75)
+          })
+        )
+      );
+    });
