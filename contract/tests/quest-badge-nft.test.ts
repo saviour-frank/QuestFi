@@ -624,3 +624,11 @@ describe("Quest Badge NFT Contract", () => {
         [Cl.uint(1)],
         wallet1
       );
+
+      it("returns base URI even for non-existent token", () => {
+      const { result } = simnet.callReadOnlyFn(
+        "quest-badge-nft",
+        "get-token-uri",
+        [Cl.uint(999)],
+        wallet1
+      );
