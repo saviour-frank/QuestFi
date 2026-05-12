@@ -436,6 +436,7 @@ describe("Quest Badge NFT Contract", () => {
         )
       );
     });
+
     it("prevents non-owner from managing protocols", () => {
       const { result } = simnet.callPublicFn(
         "quest-badge-nft",
@@ -625,10 +626,18 @@ describe("Quest Badge NFT Contract", () => {
         wallet1
       );
 
-      it("returns base URI even for non-existent token", () => {
+      expect(result).toBeOk(Cl.some(Cl.stringAscii("https://stxfinance.xyz/api/metadata/")));
+    });
+
+    it("returns base URI even for non-existent token", () => {
       const { result } = simnet.callReadOnlyFn(
         "quest-badge-nft",
         "get-token-uri",
         [Cl.uint(999)],
         wallet1
       );
+
+      expect(result).toBeOk(Cl.some(Cl.stringAscii("https://stxfinance.xyz/api/metadata/")));
+    });
+  });
+});
