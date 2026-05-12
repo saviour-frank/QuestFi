@@ -10,9 +10,16 @@ contract_id = 'SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.nft-trait'
 [contracts.quest-badge-nft]
 path = 'contracts/quest-badge-nft.clar'
 clarity_version = 3
-epoch = 3.1
+epoch = '3.1'
+
+[contracts.quest-ledger]
+path = 'contracts/quest-ledger.clar'
+clarity_version = 4
+epoch = 'latest'
 [repl.analysis]
 passes = ['check_checker']
+
+[repl.analysis.lints]
 
 [repl.analysis.check_checker]
 strict = false
