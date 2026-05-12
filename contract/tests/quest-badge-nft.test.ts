@@ -582,3 +582,6 @@ describe("Quest Badge NFT Contract", () => {
       );
       expect(count.result).toBeOk(Cl.uint(1)); // Still 1, not 2
     });
+
+    it("handles all 5 default protocols for single user", () => {
+      const protocols = ["zest", "stackingdao", "granite", "hermetica", "arkadiko"];
