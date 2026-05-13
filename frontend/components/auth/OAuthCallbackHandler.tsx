@@ -89,3 +89,24 @@ export function OAuthCallbackHandler() {
             }
             localStorage.removeItem('turnkey_oauth_pubkey')
             localStorage.removeItem('turnkey_oauth_nonce')
+
+            // Clean URL and reload to update navbar
+            window.history.replaceState({}, '', window.location.pathname)
+            window.location.reload()
+          } else {
+            throw new Error('No session received')
+          }
+        } catch (err) {
+          console.error('Google OAuth completion error:', err)
+          alert(err instanceof Error ? err.message : 'Google authentication failed')
+          // Clean URL
+          window.history.replaceState({}, '', window.location.pathname)
+        }
+      }
+    }
+
+    handleGoogleCallback()
+  }, [])
+
+  return null
+}
