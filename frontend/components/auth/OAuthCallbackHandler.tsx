@@ -57,3 +57,16 @@ export function OAuthCallbackHandler() {
           })
 
           let targetSubOrgId: string
+
+          if (getSuborgsResponse.data.organizationIds.length === 0) {
+            // Create new user with Stacks wallet
+            const createResponse = await axios.post('/api/auth/createSuborg', {
+              email: userEmail,
+              oauthProviders: [
+                { providerName: 'Google', oidcToken: idToken },
+              ],
+            })
+            targetSubOrgId = createResponse.data.subOrganizationId
+          } else {
+            targetSubOrgId = getSuborgsResponse.data.organizationIds[0]
+          }
