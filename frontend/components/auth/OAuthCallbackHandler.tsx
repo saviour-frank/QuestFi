@@ -46,3 +46,5 @@ export function OAuthCallbackHandler() {
           window.history.replaceState({}, '', window.location.pathname)
           return
         }
+
+        console.log('✓ Nonce validation passed! Using stored public key for Turnkey authentication...')
