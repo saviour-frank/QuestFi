@@ -8,3 +8,8 @@ export function OAuthCallbackHandler() {
     const handleGoogleCallback = async () => {
       // Only run once per page load
       if (typeof window === 'undefined') return
+
+      const urlParams = new URLSearchParams(window.location.search)
+      const googleAuth = urlParams.get('google_auth')
+      const idToken = urlParams.get('id_token')
+      const userEmail = urlParams.get('email')
