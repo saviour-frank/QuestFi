@@ -70,3 +70,10 @@ export function OAuthCallbackHandler() {
           } else {
             targetSubOrgId = getSuborgsResponse.data.organizationIds[0]
           }
+
+          // Authenticate with OAuth
+          const authResponse = await axios.post('/api/auth/oauth', {
+            suborgID: targetSubOrgId,
+            publicKey: storedPubKey,
+            oidcToken: idToken,
+          })
