@@ -36,3 +36,13 @@ export function OAuthCallbackHandler() {
         console.log('Stored Nonce:', storedNonce)
         console.log('Token Nonce:', nonceInToken)
         console.log('Nonces match:', storedNonce === nonceInToken)
+
+        // Verify that the nonce in the token matches what we sent
+        if (storedNonce !== nonceInToken) {
+          console.error('❌ Nonce mismatch!')
+          console.error('Expected (stored):', storedNonce)
+          console.error('Received (token):', nonceInToken)
+          alert('OAuth nonce validation failed. The nonce in the token does not match what we sent.')
+          window.history.replaceState({}, '', window.location.pathname)
+          return
+        }
