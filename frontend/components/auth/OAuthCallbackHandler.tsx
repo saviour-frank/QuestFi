@@ -24,3 +24,10 @@ export function OAuthCallbackHandler() {
         // Get stored public key from OAuth initiation (MUST use the same key that generated the nonce)
         const storedPubKey = localStorage.getItem('turnkey_oauth_pubkey')
         const storedNonce = localStorage.getItem('turnkey_oauth_nonce')
+
+        if (!storedPubKey || !storedNonce) {
+          console.error('No stored public key or nonce found')
+          alert('OAuth session expired. Please try signing in again.')
+          window.history.replaceState({}, '', window.location.pathname)
+          return
+        }
