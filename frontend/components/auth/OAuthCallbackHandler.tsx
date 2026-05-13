@@ -77,3 +77,5 @@ export function OAuthCallbackHandler() {
             publicKey: storedPubKey,
             oidcToken: idToken,
           })
+
+          const session = authResponse.data.session
