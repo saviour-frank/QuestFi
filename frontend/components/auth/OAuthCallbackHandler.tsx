@@ -48,3 +48,10 @@ export function OAuthCallbackHandler() {
         }
 
         console.log('✓ Nonce validation passed! Using stored public key for Turnkey authentication...')
+
+        try {
+          // Check if user exists
+          const getSuborgsResponse = await axios.post('/api/auth/getSuborgs', {
+            filterType: 'OIDC_TOKEN',
+            filterValue: idToken,
+          })
