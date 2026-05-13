@@ -13,3 +13,6 @@ export function OAuthCallbackHandler() {
       const googleAuth = urlParams.get('google_auth')
       const idToken = urlParams.get('id_token')
       const userEmail = urlParams.get('email')
+
+      if (googleAuth === 'success' && idToken) {
+        console.log('Google OAuth callback detected, processing...')
