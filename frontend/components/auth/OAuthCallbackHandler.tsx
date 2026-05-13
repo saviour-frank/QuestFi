@@ -16,3 +16,7 @@ export function OAuthCallbackHandler() {
 
       if (googleAuth === 'success' && idToken) {
         console.log('Google OAuth callback detected, processing...')
+
+        // Decode token to get nonce
+        const payload = JSON.parse(atob(idToken.split('.')[1]))
+        const nonceInToken = payload.nonce
