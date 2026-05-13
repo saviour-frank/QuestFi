@@ -31,3 +31,8 @@ export function OAuthCallbackHandler() {
           window.history.replaceState({}, '', window.location.pathname)
           return
         }
+
+        console.log('Stored Public Key:', storedPubKey)
+        console.log('Stored Nonce:', storedNonce)
+        console.log('Token Nonce:', nonceInToken)
+        console.log('Nonces match:', storedNonce === nonceInToken)
