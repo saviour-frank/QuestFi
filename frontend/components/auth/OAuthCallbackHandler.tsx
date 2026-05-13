@@ -79,3 +79,13 @@ export function OAuthCallbackHandler() {
           })
 
           const session = authResponse.data.session
+
+          if (session) {
+            // Session JWT received successfully
+            localStorage.setItem('turnkey_session', session)
+            localStorage.setItem('turnkey_suborg_id', targetSubOrgId)
+            if (userEmail) {
+              localStorage.setItem('user_email', userEmail)
+            }
+            localStorage.removeItem('turnkey_oauth_pubkey')
+            localStorage.removeItem('turnkey_oauth_nonce')
