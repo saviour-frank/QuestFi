@@ -20,3 +20,7 @@ export function OAuthCallbackHandler() {
         // Decode token to get nonce
         const payload = JSON.parse(atob(idToken.split('.')[1]))
         const nonceInToken = payload.nonce
+
+        // Get stored public key from OAuth initiation (MUST use the same key that generated the nonce)
+        const storedPubKey = localStorage.getItem('turnkey_oauth_pubkey')
+        const storedNonce = localStorage.getItem('turnkey_oauth_nonce')
