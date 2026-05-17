@@ -110,3 +110,15 @@ export default function Footer() {
                   Master Bitcoin DeFi through gamified quests. Learn by doing, earn NFT badges, and compete for rewards.
                 </p>
               </div>
+
+              {/* Stats Row */}
+              <div className="flex items-center gap-6 pt-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center">
+                    <Zap className="w-4 h-4 text-emerald-400" />
+                  </div>
+                  <div>
+                    <div className="text-white font-black text-sm">50+</div>
+                    <div className="text-slate-500 text-xs">Quests</div>
+                  </div>
+                </div>
