@@ -81,3 +81,6 @@ export default function Footer() {
 
       {/* Gradient Overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black z-[1]" />
+
+      {/* Border Top */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent z-[2]" />
