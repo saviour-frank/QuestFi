@@ -122,3 +122,13 @@ export default function Footer() {
                     <div className="text-slate-500 text-xs">Quests</div>
                   </div>
                 </div>
+
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center">
+                    <Award className="w-4 h-4 text-purple-400" />
+                  </div>
+                  <div>
+                    <div className="text-white font-black text-sm">5</div>
+                    <div className="text-slate-500 text-xs">Protocols</div>
+                  </div>
+                </div>
