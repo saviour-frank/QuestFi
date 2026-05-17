@@ -67,3 +67,14 @@ function Scene3D() {
 export default function Footer() {
   const protocols = ['Zest', 'StackingDAO', 'Granite', 'Hermetica', 'Arkadiko']
   const resources = ['Documentation', 'Tutorials', 'Community', 'FAQ']
+
+  return (
+    <footer className="relative bg-black overflow-hidden">
+      {/* 3D Background */}
+      <div className="absolute inset-0 z-0 opacity-40">
+        <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
+          <Suspense fallback={null}>
+            <Scene3D />
+          </Suspense>
+        </Canvas>
+      </div>
