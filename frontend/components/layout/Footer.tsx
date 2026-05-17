@@ -63,3 +63,7 @@ function Scene3D() {
     </>
   )
 }
+
+export default function Footer() {
+  const protocols = ['Zest', 'StackingDAO', 'Granite', 'Hermetica', 'Arkadiko']
+  const resources = ['Documentation', 'Tutorials', 'Community', 'FAQ']
