@@ -30,3 +30,18 @@ function Scene3D() {
     <>
       <ambientLight intensity={0.3} />
       <pointLight position={[5, 5, 5]} intensity={0.5} color="#10b981" />
+
+      <Float speed={2} rotationIntensity={0.3} floatIntensity={0.4}>
+        <Sphere ref={sphere1} args={[0.8, 32, 32]} position={[-3, 0, -2]}>
+          <MeshDistortMaterial
+            color="#10b981"
+            attach="material"
+            distort={0.3}
+            speed={1.5}
+            roughness={0.2}
+            metalness={0.8}
+            transparent
+            opacity={0.6}
+          />
+        </Sphere>
+      </Float>
