@@ -98,7 +98,6 @@ export default function Footer() {
               viewport={{ once: true }}
               className="space-y-4"
             >
-
               <div>
                 <a href="/" className="inline-flex items-center gap-2 mb-2 hover:opacity-80 transition-opacity">
                   <span className="text-2xl">🥋</span>
@@ -142,8 +141,11 @@ export default function Footer() {
                     <div className="text-slate-500 text-xs">Learners</div>
                   </div>
                 </div>
+              </div>
+            </motion.div>
+          </div>
 
-                {/* Links Sections - Compact */}
+          {/* Links Sections - Compact */}
           <div className="lg:col-span-4 grid grid-cols-2 gap-8">
             {/* Protocols */}
             <div>
@@ -190,7 +192,6 @@ export default function Footer() {
                   whileHover={{ scale: 1.1, y: -2 }}
                   className="w-10 h-10 bg-slate-900/50 backdrop-blur-xl border border-slate-800/50 hover:border-emerald-500/50 rounded-lg flex items-center justify-center transition-all group"
                 >
-                >
                   <Twitter className="w-4 h-4 text-slate-400 group-hover:text-emerald-400 transition-colors" />
                 </motion.a>
                 <motion.a
@@ -198,11 +199,16 @@ export default function Footer() {
                   whileHover={{ scale: 1.1, y: -2 }}
                   className="w-10 h-10 bg-slate-900/50 backdrop-blur-xl border border-slate-800/50 hover:border-emerald-500/50 rounded-lg flex items-center justify-center transition-all group"
                 >
-                  >
                   <Github className="w-4 h-4 text-slate-400 group-hover:text-emerald-400 transition-colors" />
                 </motion.a>
                 <motion.a
                   href="#"
                   whileHover={{ scale: 1.1, y: -2 }}
                   className="w-10 h-10 bg-slate-900/50 backdrop-blur-xl border border-slate-800/50 hover:border-emerald-500/50 rounded-lg flex items-center justify-center transition-all group"
-                ></motion.a>
+                >
+                  <MessageCircle className="w-4 h-4 text-slate-400 group-hover:text-emerald-400 transition-colors" />
+                </motion.a>
+              </div>
+            </div>
+          </div>
+        </div>
