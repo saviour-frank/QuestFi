@@ -219,3 +219,15 @@ export default function Footer() {
             <p className="text-slate-600 text-xs">
               © {new Date().getFullYear()} QuestFi. Built on Stacks.
             </p>
+            <div className="flex gap-4 text-xs">
+              <a href="#" className="text-slate-600 hover:text-emerald-400 transition-colors">Privacy</a>
+              <span className="text-slate-800">•</span>
+              <a href="#" className="text-slate-600 hover:text-emerald-400 transition-colors">Terms</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+  )
+}
