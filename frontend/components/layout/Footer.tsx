@@ -161,3 +161,21 @@ export default function Footer() {
                 ))}
               </ul>
             </div>
+
+            {/* Resources */}
+            <div>
+              <h4 className="text-white font-black mb-3 text-xs uppercase tracking-wider">Resources</h4>
+              <ul className="space-y-2">
+                {resources.map((resource) => (
+                  <li key={resource}>
+                    <a
+                      href="#"
+                      className="text-slate-500 hover:text-emerald-400 transition-colors text-sm inline-block hover:translate-x-1 duration-200"
+                    >
+                      {resource}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
