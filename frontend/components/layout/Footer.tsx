@@ -98,3 +98,15 @@ export default function Footer() {
               viewport={{ once: true }}
               className="space-y-4"
             >
+
+              <div>
+                <a href="/" className="inline-flex items-center gap-2 mb-2 hover:opacity-80 transition-opacity">
+                  <span className="text-2xl">🥋</span>
+                  <h3 className="text-2xl font-black text-white bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+                    QuestFi
+                  </h3>
+                </a>
+                <p className="text-slate-400 text-sm leading-relaxed max-w-md">
+                  Master Bitcoin DeFi through gamified quests. Learn by doing, earn NFT badges, and compete for rewards.
+                </p>
+              </div>
