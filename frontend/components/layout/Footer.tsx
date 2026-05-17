@@ -212,3 +212,10 @@ export default function Footer() {
             </div>
           </div>
         </div>
+
+        {/* Bottom Bar - Ultra Compact */}
+        <div className="pt-6 border-t border-slate-800/50">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-3">
+            <p className="text-slate-600 text-xs">
+              © {new Date().getFullYear()} QuestFi. Built on Stacks.
+            </p>
