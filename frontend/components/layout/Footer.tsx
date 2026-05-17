@@ -25,3 +25,8 @@ function Scene3D() {
       sphere2.current.position.x = Math.cos(time * 0.4) * 0.5
     }
   })
+
+  return (
+    <>
+      <ambientLight intensity={0.3} />
+      <pointLight position={[5, 5, 5]} intensity={0.5} color="#10b981" />
