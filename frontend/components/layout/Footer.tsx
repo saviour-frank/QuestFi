@@ -11,3 +11,6 @@ import * as THREE from 'three'
 function Scene3D() {
   const sphere1 = useRef<THREE.Mesh>(null!)
   const sphere2 = useRef<THREE.Mesh>(null!)
+
+  useFrame((state) => {
+    const time = state.clock.getElapsedTime()
