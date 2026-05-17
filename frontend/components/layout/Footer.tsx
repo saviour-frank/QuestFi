@@ -197,4 +197,12 @@ export default function Footer() {
                   href="#"
                   whileHover={{ scale: 1.1, y: -2 }}
                   className="w-10 h-10 bg-slate-900/50 backdrop-blur-xl border border-slate-800/50 hover:border-emerald-500/50 rounded-lg flex items-center justify-center transition-all group"
+                >
+                  >
+                  <Github className="w-4 h-4 text-slate-400 group-hover:text-emerald-400 transition-colors" />
+                </motion.a>
+                <motion.a
+                  href="#"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  className="w-10 h-10 bg-slate-900/50 backdrop-blur-xl border border-slate-800/50 hover:border-emerald-500/50 rounded-lg flex items-center justify-center transition-all group"
                 ></motion.a>
