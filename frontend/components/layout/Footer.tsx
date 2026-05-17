@@ -179,3 +179,14 @@ export default function Footer() {
               </ul>
             </div>
           </div>
+
+          {/* Social Links */}
+          <div className="lg:col-span-3 flex lg:justify-end">
+            <div>
+              <h4 className="text-white font-black mb-3 text-xs uppercase tracking-wider">Connect</h4>
+              <div className="flex gap-3">
+                <motion.a
+                  href="#"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  className="w-10 h-10 bg-slate-900/50 backdrop-blur-xl border border-slate-800/50 hover:border-emerald-500/50 rounded-lg flex items-center justify-center transition-all group"
+                ></motion.a>
