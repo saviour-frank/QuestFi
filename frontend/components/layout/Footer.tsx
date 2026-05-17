@@ -19,3 +19,9 @@ function Scene3D() {
       sphere1.current.rotation.y = time * 0.15
       sphere1.current.position.y = Math.sin(time * 0.5) * 0.3
     }
+
+    if (sphere2.current) {
+      sphere2.current.rotation.y = -time * 0.2
+      sphere2.current.position.x = Math.cos(time * 0.4) * 0.5
+    }
+  })
