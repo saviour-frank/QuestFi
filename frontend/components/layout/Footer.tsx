@@ -142,3 +142,22 @@ export default function Footer() {
                     <div className="text-slate-500 text-xs">Learners</div>
                   </div>
                 </div>
+
+                {/* Links Sections - Compact */}
+          <div className="lg:col-span-4 grid grid-cols-2 gap-8">
+            {/* Protocols */}
+            <div>
+              <h4 className="text-white font-black mb-3 text-xs uppercase tracking-wider">Protocols</h4>
+              <ul className="space-y-2">
+                {protocols.map((protocol) => (
+                  <li key={protocol}>
+                    <a
+                      href="#"
+                      className="text-slate-500 hover:text-emerald-400 transition-colors text-sm inline-block hover:translate-x-1 duration-200"
+                    >
+                      {protocol}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
