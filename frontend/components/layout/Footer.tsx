@@ -87,4 +87,5 @@ export default function Footer() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
-        
+        {/* Main Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
