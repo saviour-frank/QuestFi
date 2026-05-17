@@ -78,3 +78,6 @@ export default function Footer() {
           </Suspense>
         </Canvas>
       </div>
+
+      {/* Gradient Overlays */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black z-[1]" />
