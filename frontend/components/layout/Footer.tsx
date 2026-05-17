@@ -14,3 +14,8 @@ function Scene3D() {
 
   useFrame((state) => {
     const time = state.clock.getElapsedTime()
+
+    if (sphere1.current) {
+      sphere1.current.rotation.y = time * 0.15
+      sphere1.current.position.y = Math.sin(time * 0.5) * 0.3
+    }
