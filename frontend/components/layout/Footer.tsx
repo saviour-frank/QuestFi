@@ -132,3 +132,13 @@ export default function Footer() {
                     <div className="text-slate-500 text-xs">Protocols</div>
                   </div>
                 </div>
+
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center">
+                    <TrendingUp className="w-4 h-4 text-cyan-400" />
+                  </div>
+                  <div>
+                    <div className="text-white font-black text-sm">3.2k</div>
+                    <div className="text-slate-500 text-xs">Learners</div>
+                  </div>
+                </div>
